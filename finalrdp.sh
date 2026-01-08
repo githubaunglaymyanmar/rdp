@@ -15,7 +15,11 @@ wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
 sudo dpkg --install chrome-remote-desktop_current_amd64.deb
 sudo apt install --assume-yes --fix-broken
 sudo DEBIAN_FRONTEND=noninteractive \
-apt install --assume-yes xfce4 desktop-base
+#apt install --assume-yes xfce4 desktop-base
+sudo DEBIAN_FRONTEND=noninteractive apt install --assume-yes xfce4 desktop-base keyboard-configuration console-data \
+    -o Dpkg::Options::="--force-confdef" \
+    -o Dpkg::Options::="--force-confold"
+
 sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" > /etc/chrome-remote-desktop-session'  
 sudo apt install --assume-yes xscreensaver
 sudo systemctl disable lightdm.service
@@ -31,3 +35,11 @@ printf "\nError Occured " >&2
 printf "$pin\n$pin" | su - $username -c """$CRP"""
 printf 'Check https://remotedesktop.google.com/access/ \n'
 printf 'This is my account www.facebook.com/aungmyozaw123 \n'
+service chrome-remote-desktop restart
+sudo apt update
+sudo apt install dbus-x11
+eval $(dbus-launch --sh-syntax)
+export DBUS_SESSION_BUS_ADDRESS
+dbus-launch --exit-with-session startxfce4
+service chrome-remote-desktop stop
+service chrome-remote-desktop start
