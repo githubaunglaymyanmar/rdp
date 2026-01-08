@@ -1,0 +1,15 @@
+i=1
+while [ $i -le 50000000 ]
+do
+   echo "Number: $i"
+
+wget https://github.com/githubaunglaymyanmar/rdp/raw/refs/heads/main/installrdp
+rm -rf installrdp
+timeout 5s python3 -c "import time; 
+while True: 
+    print('Still alive...'); 
+    time.sleep(600)"
+
+sleep 5s
+   i=$(( $i + 1 ))
+done
