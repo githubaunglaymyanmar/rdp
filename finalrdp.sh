@@ -11,9 +11,11 @@ sudo adduser $username sudo
 printf "$username:$passwd" | sudo chpasswd
 sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd
 sudo apt-get update
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y xfce4 desktop-base
 wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
 sudo dpkg --install chrome-remote-desktop_current_amd64.deb
 sudo apt install --assume-yes --fix-broken
+
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y xfce4 desktop-base
 sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" > /etc/chrome-remote-desktop-session'  
 sudo apt install --assume-yes xscreensaver
