@@ -22,6 +22,9 @@ sudo systemctl enable chrome-remote-desktop@aunglay
 sudo systemctl start chrome-remote-desktop@aunglay
 sudo systemctl status chrome-remote-desktop@aunglay
 
+sudo systemctl stop chrome-remote-desktop@aunglay
+pkill -u aunglay
+
 
 
 
