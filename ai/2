@@ -1,0 +1,33 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# လိုအပ်တဲ့ package များနဲ့ XFCE Desktop တပ်ဆင်ခြင်း
+RUN apt-get update && apt-get install -y \
+    wget \
+    curl \
+    gnupg \
+    xfce4 \
+    xfce4-goodies \
+    dbus-x11 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Google Chrome တပ်ဆင်ခြင်း
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+    && apt-get update && apt-get install -y ./google-chrome-stable_current_amd64.deb \
+    && rm google-chrome-stable_current_amd64.deb
+
+# Chrome Remote Desktop တပ်ဆင်ခြင်း
+RUN wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb \
+    && apt-get update && apt-get install -y ./chrome-remote-desktop_current_amd64.deb \
+    && rm chrome-remote-desktop_current_amd64.deb
+
+# Non-root user တစ်ဦး ဖန်တီးခြင်း (ဥပမာ - crduser)
+RUN useradd -ms /bin/bash crduser && \
+    usermod -aG sudo crduser && \
+    echo "crduser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+USER crduser
+WORKDIR /home/crduser
+
+RUN echo "exec startxfce4" > ~/.chrome-remote-desktop-session
