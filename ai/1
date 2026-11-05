@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# ၁။ အချက်အလက်များ သတ်မှတ်ခြင်း
+USER_NAME="aunglay"
+
+echo "=== [1/5] System Update & Dependencies တပ်ဆင်ခြင်း ==="
+sudo apt update && sudo apt upgrade -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    xfce4 \
+    xfce4-goodies \
+    desktop-base \
+    x11-utils \
+    dbus-x11 \
+    wget \
+    curl \
+    sudo
+
+echo "=== [2/5] Google Chrome တပ်ဆင်ခြင်း ==="
+if ! command -v google-chrome &> /dev/null; then
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    sudo dpkg --install google-chrome-stable_current_amd64.deb
+    sudo apt install --assume-yes --fix-broken
+    rm google-chrome-stable_current_amd64.deb
+fi
+
+echo "=== [3/5] Chrome Remote Desktop တပ်ဆင်ခြင်း ==="
+if ! dpkg -s chrome-remote-desktop &> /dev/null; then
+    wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
+    sudo dpkg --install chrome-remote-desktop_current_amd64.deb
+    sudo apt install --assume-yes --fix-broken
+    rm chrome-remote-desktop_current_amd64.deb
+fi
+
+echo "=== [4/5] XFCE Session Configuration ပြင်ဆင်ခြင်း ==="
+# D-Bus နဲ့ Black screen / Failsafe error မတက်အောင် ချိတ်ဆက်ပေးခြင်း
+sudo tee /etc/chrome-remote-desktop-session > /dev/null << 'EOF'
+#!/bin/bash
+export XDG_SESSION_TYPE=x11
+export XDG_CURRENT_DESKTOP=XFCE
+export DESKTOP_SESSION=xfce
+exec dbus-launch --exit-with-session startxfce4
+EOF
+
+sudo chmod +x /etc/chrome-remote-desktop-session
+
+echo "=== [5/5] Systemd Service ကို ဖွင့်လှစ်ခြင်း ==="
+sudo systemctl disable chrome-remote-desktop
+sudo systemctl enable chrome-remote-desktop@${USER_NAME}
+sudo systemctl restart chrome-remote-desktop@${USER_NAME}
+
+echo "=== အောင်မြင်စွာ ပြီးဆုံးပါပြီ! ==="
