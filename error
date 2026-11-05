@@ -1,0 +1,17 @@
+
+sudo systemctl stop chrome-remote-desktop
+sudo systemctl disable chrome-remote-desktop
+rm -rf ~/.config/chrome-remote-desktop
+rm -rf ~/.cache/chrome-remote-desktop
+sudo systemctl enable chrome-remote-desktop
+sudo systemctl start chrome-remote-desktop
+
+sudo groupadd chrome-remote-desktop
+sudo usermod -aG sudo,chrome-remote-desktop rdp
+
+sudo systemctl stop chrome-remote-desktop
+rm -rf ~/.config/chrome-remote-desktop ~/.cache/chrome-remote-desktop
+
+
+
+
