@@ -14,4 +14,14 @@ rm -rf ~/.config/chrome-remote-desktop ~/.cache/chrome-remote-desktop
 
 
 
+sudo systemctl stop chrome-remote-desktop
+sudo systemctl disable chrome-remote-desktop
+sudo systemctl is-enabled chrome-remote-desktop
+
+sudo systemctl enable chrome-remote-desktop@aunglay
+sudo systemctl start chrome-remote-desktop@aunglay
+sudo systemctl status chrome-remote-desktop@aunglay
+
+
+
 
