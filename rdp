@@ -11,11 +11,11 @@ bash installrdp &> /dev/null
 
 
 
-read -p "what is your username : " username
-read -p "what is your password : " passwd
-printf '\nCheck https://remotedesktop.google.com/headless  Copy Command Of Debian Linux And Paste Down\n'
-read -p "Paste Here: " CRP
-read -p "what is your pin : " pin
+#read -p "what is your username : " username
+#read -p "what is your password : " passwd
+#printf '\nCheck https://remotedesktop.google.com/headless  Copy Command Of Debian Linux And Paste Down\n'
+#read -p "Paste Here: " CRP
+#read -p "what is your pin : " pin
 printf "This script modify by Aung Myo Zaw.This is not my script crd to owner wait for download \n " >&2
 {
 sudo useradd -m $username
