@@ -4,6 +4,15 @@ docker run -d --name my-crd-container --privileged -p 5900:5900 ubuntu-crd sleep
 
 docker exec -it --user crduser my-crd-container bash
 
+export USER=crduser
+export LOGNAME=crduser
+export HOME=/home/crduser
+
+rm -rf ~/.config/chrome-remote-desktop
+
+ls -la ~/.config
+
+DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="[အသစ်ယူလာသော Auth Code ထည့်ပါ]" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=my-docker-host --pin=123456
 
 mv ubuntu-crd Dockerfile
 
