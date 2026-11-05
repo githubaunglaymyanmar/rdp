@@ -12,7 +12,23 @@ rm -rf ~/.config/chrome-remote-desktop
 
 ls -la ~/.config
 
+rm -rf ~/.config/chrome-remote-desktop/*
+
+Xvfb :20 -screen 0 1024x768x24 &
+
+docker run -d \
+  --name chrome-remote-desktop \
+  --restart unless-stopped \
+  -e HOSTNAME=my-desktop \
+  -e CODE='4/0AUn6Hd-MD_yS_25H3_JBIMY6gtr3J07Z78ryHWQQlCkJGx_jRbhx7Q09f0O4HAvM4klDsQ' \
+  -e PIN='123456' \
+  cardinalby/chrome-remote-desktop:master
+
 DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="[အသစ်ယူလာသော Auth Code ထည့်ပါ]" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=my-docker-host --pin=123456
+
+echo "crduser ALL=(ALL) NOPASSWD: /bin/systemctl, /usr/bin/systemctl" >> /etc/sudoers.d/crduser
+
+DISPLAY=:20 /opt/google/chrome-remote-desktop/start-host --code="4/0AUn6Hd8lLf_9nSD9jYfV8HXL0qYwyUSqXipRx1WDi0YCvcxgOLPZpkSlA3xe4gzAj0Hg8A" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=my-docker-host --pin=123456
 
 mv ubuntu-crd Dockerfile
 
