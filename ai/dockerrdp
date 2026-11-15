@@ -1,0 +1,10 @@
+
+read -p "what is your code : " code
+
+docker run -d \
+  --name chrome-remote-desktop \
+  --restart unless-stopped \
+  -e HOSTNAME=my-desktop \
+  -e CODE="$code" \
+  -e PIN='123456' \
+  cardinalby/chrome-remote-desktop:latest
