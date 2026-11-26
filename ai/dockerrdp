@@ -7,4 +7,4 @@ docker run -d \
   -e HOSTNAME=my-desktop \
   -e CODE="$code" \
   -e PIN='123456' \
-  cardinalby/chrome-remote-desktop:latest
+  cardinalby/chrome-remote-desktop:master
