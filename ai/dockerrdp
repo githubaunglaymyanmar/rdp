@@ -8,3 +8,5 @@ docker run -d \
   -e CODE="$code" \
   -e PIN='123456' \
   cardinalby/chrome-remote-desktop:master
+
+#google-chrome-stable --no-sandbox --disable-setuid-sandbox
